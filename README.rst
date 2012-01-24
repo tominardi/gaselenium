@@ -2,6 +2,7 @@ INTRODUCTION
 ============
 
 This project contains a set of scripts for SEO guys.
+This fork is done to add some specific features.
 
 HOW TO INSTALL
 ==============
