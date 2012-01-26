@@ -5,7 +5,7 @@ import sys
 from selenium import webdriver
 
 profile = webdriver.FirefoxProfile()
-profile.set_preference("general.useragent.override", "Mozilla/5.0 (GASelenium; X11; Gaselenium; rv:9.0.1) Gecko/20100101 GASelenium")
+profile.set_preference("general.useragent.override", "Mozilla/5.0 (GASelenium; X11; Gaselenium; rv:9.0.1) Gecko/20100101 Firefox/8.0")
 
 BING_URL = "http://www.bing.com/?%s"
 BASE_QUERY = {'q':None}
