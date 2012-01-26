@@ -11,7 +11,7 @@ you must have git, python with setuptools, firefox and java.
 
 execute this command::
 
-    git clone git://github.com/toutpt/gaselenium.git
+    git clone git://github.com/tominardi/gaselenium.git
     cd gaselenium
     python bootstrap.py
     bin/buildout

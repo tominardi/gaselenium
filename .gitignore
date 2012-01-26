@@ -1,0 +1,8 @@
+.project
+.pydevproject
+.installed.cfg
+test_keywords.txt
+bin/
+eggs/
+parts/
+downloads/

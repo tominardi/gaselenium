@@ -4,13 +4,16 @@ import sys
 
 from selenium import webdriver
 
+profile = webdriver.FirefoxProfile()
+profile.set_preference("general.useragent.override", "Mozilla/5.0 (GASelenium; X11; Gaselenium; rv:9.0.1) Gecko/20100101 GASelenium")
+
 BING_URL = "http://www.bing.com/?%s"
 BASE_QUERY = {'q':None}
 
 domain = sys.argv[1]
 keywords = open(sys.argv[2]).read().split('\n')
 
-browser = webdriver.Firefox() # Get local session of firefox
+browser = webdriver.Firefox(profile) # Get local session of firefox
 
 for keyword in keywords:
     query = BASE_QUERY
