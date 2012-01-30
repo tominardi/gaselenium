@@ -6,7 +6,7 @@ import sys
 from selenium import webdriver
 
 profile = webdriver.FirefoxProfile()
-profile.set_preference("general.useragent.override", "Mozilla/5.0 (GASelenium; X11; Gaselenium; rv:9.0.1) Gecko/20100101 Firefox/8.0")
+profile.set_preference("general.useragent.override", "GASelenium")
 
 GOOGLE_URL = "http://www.google.com/?%s"
 BASE_QUERY = {'q':None,'hl':'fr'}
@@ -26,18 +26,16 @@ def check_domain(url):
     return False
 
 browser = webdriver.Firefox(profile) # Get local session of firefox
-
 for keyword in keywords:
     query = BASE_QUERY
     query['q'] = keyword
     url = GOOGLE_URL%urllib.urlencode(query)
     browser.get(url)
-    browser.find_element_by_name('btnK').click()
+    browser.find_element_by_name('btnG').click()
     time.sleep(1)
-    results = browser.find_elements_by_class_name('l')
-
+    results = browser.find_elements_by_class_name('r')
     for result in results:
-        if check_domain(result.get_attribute('href')):
+        if check_domain(result.find_elements_by_tag_name('a')[0].get_attribute('href')):
             result.click()
             time.sleep(2)
             break
