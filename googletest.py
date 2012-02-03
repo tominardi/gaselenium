@@ -13,6 +13,9 @@ BASE_QUERY = {'q':None,'hl':'fr'}
 
 domain = sys.argv[1]
 keywords = open(sys.argv[2]).read().split('\n')
+max_pages = 20
+if len(sys.argv) >= 4:
+    max_pages = int(sys.argv[3])
 
 def check_domain(url):
     if not url.startswith('http://www.google'):
@@ -25,6 +28,15 @@ def check_domain(url):
             return domain == rdomain
     return False
 
+def watch_results(browser):
+    results = browser.find_elements_by_class_name('r')
+    for result in results:
+        if check_domain(result.find_elements_by_tag_name('a')[0].get_attribute('href')):
+            result.find_elements_by_tag_name('a')[0].click()
+            time.sleep(2)
+            return True
+    return False
+
 browser = webdriver.Firefox(profile) # Get local session of firefox
 for keyword in keywords:
     query = BASE_QUERY
@@ -33,13 +45,13 @@ for keyword in keywords:
     browser.get(url)
     browser.find_element_by_name('btnG').click()
     time.sleep(1)
-    results = browser.find_elements_by_class_name('r')
-    for result in results:
-        if check_domain(result.find_elements_by_tag_name('a')[0].get_attribute('href')):
-            result.click()
-            time.sleep(2)
-            break
-    time.sleep(2)
+
+    for i in range(1, max_pages):
+        if watch_results(browser) == False:
+            browser.find_element_by_css_selector('#nav .b:last-child a').click()
+            time.sleep(1)
+        else:
+            break;
     browser.delete_all_cookies()
 
 browser.close()
